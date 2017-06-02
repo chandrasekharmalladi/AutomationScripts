@@ -3,7 +3,8 @@ homeDir="/home/ubuntu/env"
 #homeDir="/Users/uxu99fr/workspace/env2
 script="df -h"
 username="ubuntu"
-val=60
+val=75
+val2=85
 ROOM=3880584
 TOKEN=kAC2lD6a5cGAy9l528kI3533XrQLExzoe7Nxt2ka
 declare -A APPS_MAP
@@ -98,8 +99,9 @@ for APP in ${APPS}; do
 					#exit
 					echo $percentvalue
 						if [ "$percentvalue" -gt "$val" ]; then
-					curl -H "Content-Type: application/json" -X POST -d "{\"color\": \"red\", \"message_format\": \"text\", \"message\": \"WARNING: "$i" of "${APPS_MAP[$APP]}" in "${ENVS_MAP[$ENV]}" has "$percentvalue"% usage\"}" https://api.hipchat.com/v2/room/$ROOM/notification?auth_token=$TOKEN		
-						
+					curl -H "Content-Type: application/json" -X POST -d "{\"color\": \"yellow\", \"message_format\": \"text\", \"message\": \"WARNING: "$i" of "${APPS_MAP[$APP]}" in "${ENVS_MAP[$ENV]}" has "$percentvalue"% usage\"}" https://api.hipchat.com/v2/room/$ROOM/notification?auth_token=$TOKEN		
+						 elif [ "$percentvalue" -gt "$val2" ]; then
+                                        curl -H "Content-Type: application/json" -X POST -d "{\"color\": \"red\", \"message_format\": \"text\", \"message\": \"CRITICAL: "$i" of "${APPS_MAP[$APP]}" in "${ENVS_MAP[$ENV]}" has "$percentvalue"% usage\"}" https://api.hipchat.com/v2/room/$ROOM/notification?auth_token=$TOKEN
 						fi
 				 #fi
 				#doallhere
